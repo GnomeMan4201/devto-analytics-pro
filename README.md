@@ -1,4 +1,8 @@
-# 📊 DEV.to Analytics Pro
+
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3xycbqvawn6prx5c6ic8.png
+
+# DEV.to Analytics Pro
 
 > Advanced analytics and insights for your DEV.to articles - because the built-in dashboard isn't enough.
 
