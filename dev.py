@@ -43,6 +43,8 @@ class DevToAnalytics:
         filtered = []
         
         for article in self.articles:
+            if not article.get('published_at'):
+                continue
             # Parse published date and make timezone-aware
             pub_date_str = article['published_at'].replace('Z', '+00:00')
             pub_date = datetime.fromisoformat(pub_date_str)
@@ -114,7 +116,7 @@ class DevToAnalytics:
             comments = article.get('comments_count', 0)
             engagement = self.calculate_engagement_rate(article)
             url = article['url']
-            published = article['published_at'][:10]
+            published = article['published_at'][:10] if article['published_at'] else "Unpublished"
             
             print(f"\n{i}. {title}")
             print(f"   👀 Views: {views} | ❤️  Reactions: {reactions} | 💬 Comments: {comments} | 🎯 Engagement: {engagement:.2f}%")
@@ -205,6 +207,8 @@ class DevToAnalytics:
         })
         
         for article in self.articles:
+            if not article.get('published_at'):
+                continue
             pub_date = datetime.fromisoformat(article['published_at'].replace('Z', '+00:00'))
             month_key = pub_date.strftime('%Y-%m')
             
@@ -289,7 +293,7 @@ class DevToAnalytics:
                 writer.writerow([
                     article['title'],
                     article['url'],
-                    article['published_at'][:10],
+                    article['published_at'][:10] if article['published_at'] else "Unpublished",
                     article.get('page_views_count', 0),
                     article.get('public_reactions_count', 0),
                     article.get('comments_count', 0),
