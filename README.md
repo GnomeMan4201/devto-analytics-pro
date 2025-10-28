@@ -1,5 +1,7 @@
 
 
+![Python](https://img.shields.io/badge/python-3.8+-blue.svg) ![License](https://img.shields.io/badge/license-MIT-green.svg) ![Stars](https://img.shields.io/github/stars/GnomeMan4201/devto-analytics-pro?style=social)
+
 ![Tests](https://github.com/GnomeMan4201/devto-analytics-pro/workflows/Tests/badge.svg) ![Python](https://img.shields.io/badge/python-3.8+-blue.svg) ![License](https://img.shields.io/badge/license-MIT-green.svg) ![Stars](https://img.shields.io/github/stars/GnomeMan4201/devto-analytics-pro?style=social)
 
 
