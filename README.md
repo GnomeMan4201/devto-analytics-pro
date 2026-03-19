@@ -1,83 +1,45 @@
+# devto-analytics-pro
 
+**Article performance analytics for DEV.to writers — tag analysis, growth trends, and engagement tracking.**
 
-![Python](https://img.shields.io/badge/python-3.8+-blue.svg) ![License](https://img.shields.io/badge/license-MIT-green.svg) ![Stars](https://img.shields.io/github/stars/GnomeMan4201/devto-analytics-pro?style=social)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](#)
+[![DEV.to](https://img.shields.io/badge/dev.to-gnomeman4201-black?logo=dev.to)](https://dev.to/gnomeman4201)
 
-![Tests](https://github.com/GnomeMan4201/devto-analytics-pro/workflows/Tests/badge.svg) ![Python](https://img.shields.io/badge/python-3.8+-blue.svg) ![License](https://img.shields.io/badge/license-MIT-green.svg) ![Stars](https://img.shields.io/github/stars/GnomeMan4201/devto-analytics-pro?style=social)
+---
 
+DEV.to's built-in dashboard shows you totals. This shows you trends. Pull your article data via the DEV.to API and get tag performance breakdowns, month-over-month growth, engagement rates, reading time analysis, and underperformer detection — all exportable to JSON or CSV.
 
-# DEV.to Analytics Pro
+---
 
-> Advanced analytics and insights for your DEV.to articles - because the built-in dashboard isn't enough.
+## Features
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+- Total views, reactions, comments, and engagement rates
+- Top performers by views, reactions, or engagement
+- Tag performance analysis — which tags drive traffic
+- Reading time vs engagement correlation
+- Month-over-month growth tracking
+- Underperformer detection
+- Export to JSON or CSV
 
-##  Why This Tool?
+---
 
-DEV.to's built-in analytics are good, but they're missing critical insights:
-- ❌ No trend analysis over time
-- ❌ Can't compare tag performance
-- ❌ Limited export options
-- ❌ No way to identify underperforming content
-
-**DEV.to Analytics Pro solves this.**
-
-##  Features
-
--  **Comprehensive Overview** - Total views, reactions, comments, and engagement rates
--  **Top Performers** - Identify your best articles by views, reactions, or engagement
--  **Tag Analysis** - See which tags drive the most traffic
--  **Reading Time Insights** - Understand how article length affects performance
--  **Growth Trends** - Track your progress month over month
--  **Underperformer Detection** - Find articles that need improvement
--  **Export Data** - Save to JSON or CSV for further analysis
-
-##  Quick Start
-
-### Installation
-
+## Usage
 ```bash
-# Clone the repository
 git clone https://github.com/GnomeMan4201/devto-analytics-pro.git
 cd devto-analytics-pro
-
-# Install dependencies
 pip install -r requirements.txt
-Get Your API Key
-Go to DEV.to Settings
-Scroll to "DEV Community API Keys"
-Generate a new key (read-only permissions are sufficient)
-Basic Usage
-# Full analytics report
-python3 dev.py --api-key YOUR_API_KEY --full-report
+export DEVTO_API_KEY=your_key_here
+python3 dev.py
+```
 
-# Quick overview
-python3 dev.py --api-key YOUR_API_KEY --overview
+---
 
-# Top 20 articles by engagement
-python3 dev.py --api-key YOUR_API_KEY --top 20 --sort engagement
-📖 Usage Examples
-Analyze Last 30 Days
-python3 dev.py --api-key YOUR_KEY --overview --days 30
-Find Underperforming Articles
-python3 dev.py --api-key YOUR_KEY --underperformers --days 60
-Tag Performance Analysis
-python3 dev.py --api-key YOUR_KEY --tags --days 90
-Export to CSV
-python3 dev.py --api-key YOUR_KEY --export-csv my_analytics.csv
-📊 Sample Output
-============================================================
-📊 DEV.TO ANALYTICS OVERVIEW (all time)
-============================================================
-📝 Total Articles:      16
-👀 Total Views:         983
-❤️  Total Reactions:     25
-💬 Total Comments:      0
-📈 Avg Views/Article:   61
-🎯 Engagement Rate:     4.50%
-============================================================
- 
-Contributions are welcome. 
+## Tests
+```bash
+python3 -m pytest tests/
+```
 
-Built by @GnomeMan4201 - Security researcher who got tired of not having proper analytics.
- 
+---
+
+*devto-analytics-pro // badBANANA research // GnomeMan4201*
