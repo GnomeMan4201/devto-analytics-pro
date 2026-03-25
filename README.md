@@ -1,4 +1,6 @@
 # devto-analytics-pro
+[![CI](https://github.com/GnomeMan4201/devto-analytics-pro/actions/workflows/ci.yml/badge.svg)](https://github.com/GnomeMan4201/devto-analytics-pro/actions/workflows/ci.yml)
+
 
 **Article performance analytics for DEV.to writers — tag analysis, growth trends, and engagement tracking.**
 
