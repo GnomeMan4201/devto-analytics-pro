@@ -43,3 +43,11 @@ python3 -m pytest tests/
 ---
 
 *devto-analytics-pro // badBANANA research // GnomeMan4201*
+
+---
+
+## Demo
+
+<p align="center">
+  <img src="assets/devto_analytics_demo.png" alt="devto-analytics-pro full report output" width="780"/>
+</p>
