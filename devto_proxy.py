@@ -2,7 +2,7 @@
 """
 devto_proxy.py — local proxy for dev.to analytics
 Adds the api-key header server-side, bypassing browser CORS restrictions.
-Usage: python3 devto_proxy.py YOUR_API_KEY
+Usage: DEVTO_API_KEY=your_key python3 devto_proxy.py
 Then open http://localhost:8765/devto_analytics.html
 """
 import sys
@@ -12,7 +12,8 @@ import urllib.error
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 
-API_KEY = sys.argv[1] if len(sys.argv) > 1 else ""
+import os
+API_KEY = os.environ.get("DEVTO_API_KEY", "")
 SERVE_DIR = Path(__file__).parent
 PORT = 8765
 
@@ -21,6 +22,8 @@ class Handler(BaseHTTPRequestHandler):
         print(f"  {self.address_string()} {fmt % args}")
 
     def do_GET(self):
+        if self.path == '/':
+            self.path = '/devto_analytics.html'
         # Proxy /api/* to dev.to with the api-key header
         if self.path.startswith("/api/"):
             devto_url = "https://dev.to" + self.path
