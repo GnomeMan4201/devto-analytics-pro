@@ -22,3 +22,12 @@ jobs:
           pip install pytest
       - name: Run tests
         run: pytest tests/ -v --tb=short
+      - name: Verify CLI entrypoints
+        run: |
+          python dev.py --help >/dev/null
+          set +e
+          output=$(python dev_env.py --overview 2>&1)
+          status=$?
+          set -e
+          test "$status" -ne 0
+          echo "$output" | grep -q 'DEVTO_API_KEY is not set'
