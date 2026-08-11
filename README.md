@@ -54,15 +54,8 @@ pip install -r requirements.txt
 
 ### 2. Verify the installation
 
-The fastest dependency/CLI smoke check does not contact DEV.to:
-
 ```bash
 python dev.py --help
-```
-
-For the repository test suite:
-
-```bash
 pip install pytest
 python -m pytest -q
 ```
@@ -71,18 +64,20 @@ The current suite primarily validates importability and basic project structure.
 
 ### 3. Add your DEV.to API key
 
-Create an API key in your DEV.to account settings, then pass it at runtime:
-
-```bash
-python dev.py --api-key "$DEVTO_API_KEY" --overview
-```
-
-A shell environment variable keeps the key out of command history more reliably than pasting the literal key into repeated commands:
+Create an API key in your DEV.to account settings and export it into the current shell:
 
 ```bash
 export DEVTO_API_KEY='your-key-here'
-python dev.py --api-key "$DEVTO_API_KEY" --full-report
 ```
+
+Use the environment-backed entrypoint for normal operation:
+
+```bash
+python dev_env.py --overview
+python dev_env.py --full-report
+```
+
+`dev_env.py` injects the credential into the existing CLI in memory, so the API key does not appear in the operating-system process argument vector. The original `dev.py --api-key ...` interface remains available for compatibility, but the environment-backed entrypoint is preferred.
 
 Do not commit API keys, exported private account data, or shell history containing credentials.
 
@@ -93,44 +88,44 @@ Do not commit API keys, exported private account data, or shell history containi
 ### Portfolio overview
 
 ```bash
-python dev.py --api-key "$DEVTO_API_KEY" --overview
+python dev_env.py --overview
 ```
 
 ### Top articles by engagement
 
 ```bash
-python dev.py --api-key "$DEVTO_API_KEY" --top 20 --sort engagement
+python dev_env.py --top 20 --sort engagement
 ```
 
 ### Last 90 days of tag performance
 
 ```bash
-python dev.py --api-key "$DEVTO_API_KEY" --tags --days 90
+python dev_env.py --tags --days 90
 ```
 
 ### Audience and commenter analysis
 
 ```bash
-python dev.py --api-key "$DEVTO_API_KEY" --follower-correlation
-python dev.py --api-key "$DEVTO_API_KEY" --commenters
-python dev.py --api-key "$DEVTO_API_KEY" --loyal-readers
-python dev.py --api-key "$DEVTO_API_KEY" --commenter-enrichment --enrich-top 15
+python dev_env.py --follower-correlation
+python dev_env.py --commenters
+python dev_env.py --loyal-readers
+python dev_env.py --commenter-enrichment --enrich-top 15
 ```
 
 ### Publishing and content intelligence
 
 ```bash
-python dev.py --api-key "$DEVTO_API_KEY" --publish-heatmap
-python dev.py --api-key "$DEVTO_API_KEY" --series
-python dev.py --api-key "$DEVTO_API_KEY" --content-analysis
-python dev.py --api-key "$DEVTO_API_KEY" --tag-fix
-python dev.py --api-key "$DEVTO_API_KEY" --insights
+python dev_env.py --publish-heatmap
+python dev_env.py --series
+python dev_env.py --content-analysis
+python dev_env.py --tag-fix
+python dev_env.py --insights
 ```
 
 ### Full report
 
 ```bash
-python dev.py --api-key "$DEVTO_API_KEY" --full-report
+python dev_env.py --full-report
 ```
 
 `--full-report` intentionally performs many API-backed analyses and can take longer than a single focused command.
@@ -139,24 +134,17 @@ python dev.py --api-key "$DEVTO_API_KEY" --full-report
 
 ## Export
 
-Export article data and summary metrics for local notebooks, spreadsheets, or archival workflows:
-
 ```bash
-python dev.py --api-key "$DEVTO_API_KEY" --export-json analytics.json
-python dev.py --api-key "$DEVTO_API_KEY" --export-csv analytics.csv
-```
-
-You can combine exports with a date filter:
-
-```bash
-python dev.py --api-key "$DEVTO_API_KEY" --days 90 --export-csv last-90-days.csv
+python dev_env.py --export-json analytics.json
+python dev_env.py --export-csv analytics.csv
+python dev_env.py --days 90 --export-csv last-90-days.csv
 ```
 
 ---
 
 ## CLI reference
 
-Run the authoritative command reference at any time:
+The underlying argument reference remains authoritative:
 
 ```bash
 python dev.py --help
@@ -214,7 +202,7 @@ The tool requests account and content data from DEV.to only when a command needs
 
 Recommended practice:
 
-- keep the API key in an environment variable
+- keep the API key in `DEVTO_API_KEY` and use `dev_env.py`
 - keep exports out of version control
 - review generated datasets before sharing
 - use the smallest analysis command that answers the question when you do not need the full report
@@ -225,10 +213,10 @@ Recommended practice:
 
 There are two different validation layers:
 
-1. **Offline smoke validation** — importing the module, checking syntax/project structure, and exercising the CLI help path.
+1. **Offline smoke validation** — importing the module, checking syntax/project structure, exercising the CLI help path, and verifying the environment-backed entrypoint fails closed when no key is present.
 2. **Live integration behavior** — commands that depend on DEV.to API availability, authentication, pagination, and the shape of returned account data.
 
-That distinction is intentional. A green local smoke test confirms that the repository is runnable; it does not prove that every external DEV.to endpoint is currently available or unchanged.
+A green local smoke test confirms that the repository is runnable; it does not prove that every external DEV.to endpoint is currently available or unchanged.
 
 ---
 
@@ -237,6 +225,7 @@ That distinction is intentional. A green local smoke test confirms that the repo
 ```text
 devto-analytics-pro/
 ├── dev.py                  # CLI and analytics engine
+├── dev_env.py              # preferred environment-backed credential entrypoint
 ├── requirements.txt        # runtime dependencies
 ├── tests/                  # pytest smoke/basic tests
 ├── .github/workflows/      # CI automation
