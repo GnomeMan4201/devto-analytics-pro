@@ -185,14 +185,11 @@ Major analysis flags include:
 - a DEV.to API key for authenticated analytics
 - network access when running API-backed commands
 
-Runtime Python dependencies are defined in `requirements.txt`:
+The runtime Python dependency surface is intentionally minimal and defined in `requirements.txt`:
 
 - `requests`
-- `matplotlib`
-- `seaborn`
-- `numpy`
 
-`pytest` is only needed to run the repository test suite.
+`pytest` is only needed to run the repository test suite. No plotting or numerical-computing package is required by the current implementation.
 
 ---
 
